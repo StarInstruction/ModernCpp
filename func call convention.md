@@ -812,7 +812,326 @@ main:
 # 汇编代码(c++11)
 
 ```c++
-
+Large::Large() [base object constructor]:
+        pushq   %rbp
+        movq    %rsp, %rbp
+        movq    %rdi, -8(%rbp)
+        movq    -8(%rbp), %rax
+        movq    $1, (%rax)
+        movq    -8(%rbp), %rax
+        movq    $2, 8(%rax)
+        movq    -8(%rbp), %rax
+        movq    $3, 16(%rax)
+        movq    -8(%rbp), %rax
+        movq    $4, 24(%rax)
+        movq    -8(%rbp), %rax
+        movq    $5, 32(%rax)
+        movq    -8(%rbp), %rax
+        movq    $6, 40(%rax)
+        movq    -8(%rbp), %rax
+        movq    $7, 48(%rax)
+        movq    -8(%rbp), %rax
+        movq    $8, 56(%rax)
+        movq    -8(%rbp), %rax
+        movq    $9, 64(%rax)
+        movq    -8(%rbp), %rax
+        movq    $10, 72(%rax)
+        nop
+        popq    %rbp
+        ret
+Large::Large(Large&&) [base object constructor]:
+        pushq   %rbp
+        movq    %rsp, %rbp
+        pushq   %rbx
+        movq    %rdi, -16(%rbp)
+        movq    %rsi, -24(%rbp)
+        movq    -16(%rbp), %rax
+        movq    -24(%rbp), %rdx
+        movq    (%rdx), %rcx
+        movq    8(%rdx), %rbx
+        movq    %rcx, (%rax)
+        movq    %rbx, 8(%rax)
+        movq    16(%rdx), %rcx
+        movq    24(%rdx), %rbx
+        movq    %rcx, 16(%rax)
+        movq    %rbx, 24(%rax)
+        movq    32(%rdx), %rcx
+        movq    40(%rdx), %rbx
+        movq    %rcx, 32(%rax)
+        movq    %rbx, 40(%rax)
+        movq    48(%rdx), %rcx
+        movq    56(%rdx), %rbx
+        movq    %rcx, 48(%rax)
+        movq    %rbx, 56(%rax)
+        movq    64(%rdx), %rcx
+        movq    72(%rdx), %rbx
+        movq    %rcx, 64(%rax)
+        movq    %rbx, 72(%rax)
+        nop
+        movq    -8(%rbp), %rbx
+        leave
+        ret
+func1():
+        pushq   %rbp
+        movq    %rsp, %rbp
+        subq    $96, %rsp
+        movq    %rdi, -88(%rbp)
+        leaq    -80(%rbp), %rax
+        movq    %rax, %rdi
+        call    Large::Large() [complete object constructor]
+        movq    $11, -8(%rbp)
+        leaq    -80(%rbp), %rdx
+        movq    -88(%rbp), %rax
+        movq    %rdx, %rsi
+        movq    %rax, %rdi
+        call    Large::Large(Large&&) [complete object constructor]
+        movq    -88(%rbp), %rax
+        leave
+        ret
+func2():
+        pushq   %rbp
+        movq    %rsp, %rbp
+        subq    $96, %rsp
+        movq    %rdi, -88(%rbp)
+        leaq    -80(%rbp), %rax
+        movq    %rax, %rdi
+        call    Large::Large() [complete object constructor]
+        leaq    -80(%rbp), %rdx
+        movq    -88(%rbp), %rax
+        movq    %rdx, %rsi
+        movq    %rax, %rdi
+        call    Large::Large(Large&&) [complete object constructor]
+        movq    -88(%rbp), %rax
+        leave
+        ret
+func3(long, long, long, Large):
+        pushq   %rbp
+        movq    %rsp, %rbp
+        subq    $32, %rsp
+        movq    %rdi, -8(%rbp)
+        movq    %rsi, -16(%rbp)
+        movq    %rdx, -24(%rbp)
+        movq    %rcx, -32(%rbp)
+        movq    -16(%rbp), %rdx
+        movq    -24(%rbp), %rax
+        addq    %rax, %rdx
+        movq    -32(%rbp), %rax
+        addq    %rdx, %rax
+        movq    %rax, 88(%rbp)
+        movq    -8(%rbp), %rax
+        leaq    16(%rbp), %rsi
+        movq    %rax, %rdi
+        call    Large::Large(Large&&) [complete object constructor]
+        movq    -8(%rbp), %rax
+        leave
+        ret
+func4(long, long, long):
+        pushq   %rbp
+        movq    %rsp, %rbp
+        subq    $112, %rsp
+        movq    %rdi, -88(%rbp)
+        movq    %rsi, -96(%rbp)
+        movq    %rdx, -104(%rbp)
+        movq    %rcx, -112(%rbp)
+        leaq    -80(%rbp), %rax
+        movq    %rax, %rdi
+        call    Large::Large() [complete object constructor]
+        movq    -96(%rbp), %rdx
+        movq    -104(%rbp), %rax
+        addq    %rax, %rdx
+        movq    -112(%rbp), %rax
+        addq    %rdx, %rax
+        movq    %rax, -8(%rbp)
+        leaq    -80(%rbp), %rdx
+        movq    -88(%rbp), %rax
+        movq    %rdx, %rsi
+        movq    %rax, %rdi
+        call    Large::Large(Large&&) [complete object constructor]
+        movq    -88(%rbp), %rax
+        leave
+        ret
+Large::Large(Large const&) [base object constructor]:
+        pushq   %rbp
+        movq    %rsp, %rbp
+        pushq   %rbx
+        movq    %rdi, -16(%rbp)
+        movq    %rsi, -24(%rbp)
+        movq    -16(%rbp), %rax
+        movq    -24(%rbp), %rdx
+        movq    (%rdx), %rcx
+        movq    8(%rdx), %rbx
+        movq    %rcx, (%rax)
+        movq    %rbx, 8(%rax)
+        movq    16(%rdx), %rcx
+        movq    24(%rdx), %rbx
+        movq    %rcx, 16(%rax)
+        movq    %rbx, 24(%rax)
+        movq    32(%rdx), %rcx
+        movq    40(%rdx), %rbx
+        movq    %rcx, 32(%rax)
+        movq    %rbx, 40(%rax)
+        movq    48(%rdx), %rcx
+        movq    56(%rdx), %rbx
+        movq    %rcx, 48(%rax)
+        movq    %rbx, 56(%rax)
+        movq    64(%rdx), %rcx
+        movq    72(%rdx), %rbx
+        movq    %rcx, 64(%rax)
+        movq    %rbx, 72(%rax)
+        nop
+        movq    -8(%rbp), %rbx
+        leave
+        ret
+g1():
+        pushq   %rbp
+        movq    %rsp, %rbp
+        pushq   %rbx
+        subq    $520, %rsp
+        movq    $61, -24(%rbp)
+        movq    $62, -32(%rbp)
+        movq    $63, -40(%rbp)
+        leaq    -528(%rbp), %rax
+        movq    %rax, %rdi
+        call    Large::Large() [complete object constructor]
+        leaq    -448(%rbp), %rax
+        movq    %rax, %rdi
+        call    func1()
+        leaq    -368(%rbp), %rax
+        movq    %rax, %rdi
+        call    func2()
+        leaq    -528(%rbp), %rdx
+        leaq    -208(%rbp), %rax
+        movq    %rdx, %rsi
+        movq    %rax, %rdi
+        call    Large::Large(Large const&) [complete object constructor]
+        leaq    -288(%rbp), %rdi
+        movq    -40(%rbp), %r8
+        movq    -32(%rbp), %rdx
+        movq    -24(%rbp), %rsi
+        subq    $80, %rsp
+        movq    %rsp, %rax
+        movq    -208(%rbp), %rcx
+        movq    -200(%rbp), %rbx
+        movq    %rcx, (%rax)
+        movq    %rbx, 8(%rax)
+        movq    -192(%rbp), %rcx
+        movq    -184(%rbp), %rbx
+        movq    %rcx, 16(%rax)
+        movq    %rbx, 24(%rax)
+        movq    -176(%rbp), %rcx
+        movq    -168(%rbp), %rbx
+        movq    %rcx, 32(%rax)
+        movq    %rbx, 40(%rax)
+        movq    -160(%rbp), %rcx
+        movq    -152(%rbp), %rbx
+        movq    %rcx, 48(%rax)
+        movq    %rbx, 56(%rax)
+        movq    -144(%rbp), %rcx
+        movq    -136(%rbp), %rbx
+        movq    %rcx, 64(%rax)
+        movq    %rbx, 72(%rax)
+        movq    %r8, %rcx
+        call    func3(long, long, long, Large)
+        addq    $80, %rsp
+        leaq    -128(%rbp), %rax
+        movq    -40(%rbp), %rcx
+        movq    -32(%rbp), %rdx
+        movq    -24(%rbp), %rsi
+        movq    %rax, %rdi
+        call    func4(long, long, long)
+        nop
+        movq    -8(%rbp), %rbx
+        leave
+        ret
+g2():
+        pushq   %rbp
+        movq    %rsp, %rbp
+        pushq   %rbx
+        subq    $840, %rsp
+        movq    $61, -24(%rbp)
+        movq    $62, -32(%rbp)
+        movq    $63, -40(%rbp)
+        leaq    -528(%rbp), %rax
+        movq    %rax, %rdi
+        call    Large::Large() [complete object constructor]
+        leaq    -448(%rbp), %rax
+        movq    %rax, %rdi
+        call    func1()
+        leaq    -448(%rbp), %rdx
+        leaq    -608(%rbp), %rax
+        movq    %rdx, %rsi
+        movq    %rax, %rdi
+        call    Large::Large(Large&&) [complete object constructor]
+        leaq    -368(%rbp), %rax
+        movq    %rax, %rdi
+        call    func2()
+        leaq    -368(%rbp), %rdx
+        leaq    -688(%rbp), %rax
+        movq    %rdx, %rsi
+        movq    %rax, %rdi
+        call    Large::Large(Large&&) [complete object constructor]
+        leaq    -528(%rbp), %rdx
+        leaq    -208(%rbp), %rax
+        movq    %rdx, %rsi
+        movq    %rax, %rdi
+        call    Large::Large(Large const&) [complete object constructor]
+        leaq    -288(%rbp), %rdi
+        movq    -40(%rbp), %r8
+        movq    -32(%rbp), %rdx
+        movq    -24(%rbp), %rsi
+        subq    $80, %rsp
+        movq    %rsp, %rax
+        movq    -208(%rbp), %rcx
+        movq    -200(%rbp), %rbx
+        movq    %rcx, (%rax)
+        movq    %rbx, 8(%rax)
+        movq    -192(%rbp), %rcx
+        movq    -184(%rbp), %rbx
+        movq    %rcx, 16(%rax)
+        movq    %rbx, 24(%rax)
+        movq    -176(%rbp), %rcx
+        movq    -168(%rbp), %rbx
+        movq    %rcx, 32(%rax)
+        movq    %rbx, 40(%rax)
+        movq    -160(%rbp), %rcx
+        movq    -152(%rbp), %rbx
+        movq    %rcx, 48(%rax)
+        movq    %rbx, 56(%rax)
+        movq    -144(%rbp), %rcx
+        movq    -136(%rbp), %rbx
+        movq    %rcx, 64(%rax)
+        movq    %rbx, 72(%rax)
+        movq    %r8, %rcx
+        call    func3(long, long, long, Large)
+        addq    $80, %rsp
+        leaq    -288(%rbp), %rdx
+        leaq    -768(%rbp), %rax
+        movq    %rdx, %rsi
+        movq    %rax, %rdi
+        call    Large::Large(Large&&) [complete object constructor]
+        leaq    -128(%rbp), %rax
+        movq    -40(%rbp), %rcx
+        movq    -32(%rbp), %rdx
+        movq    -24(%rbp), %rsi
+        movq    %rax, %rdi
+        call    func4(long, long, long)
+        leaq    -128(%rbp), %rdx
+        leaq    -848(%rbp), %rax
+        movq    %rdx, %rsi
+        movq    %rax, %rdi
+        call    Large::Large(Large&&) [complete object constructor]
+        nop
+        movq    -8(%rbp), %rbx
+        leave
+        ret
+main:
+        pushq   %rbp
+        movq    %rsp, %rbp
+        call    g1()
+        call    g2()
+        movl    $0, %eax
+        popq    %rbp
+        ret
 ```
 
 
@@ -833,7 +1152,7 @@ Large func2() {
 
 
 
-## g2
+## g2(只展示部分差异，其他差异类似)
 
 ```c++
 void g2() {
@@ -848,7 +1167,15 @@ void g2() {
     Large lg3 = func3(x, y, z, lg0);
     Large lg4 = func4(x, y, z);
 }
+
+Large func1() {
+    Large l;
+    l.j = 11;
+    return l;
+}
 ```
+
+![image-20250511153917387](./assets/image-20250511153917387.png)
 
 gcc C++11为函数的返回值分配了栈上临时空间，然后通过Large(Large&&) move
 
